@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% macro input(name, label, type='text') -%}
+    <div class="form-group">
+        <label for="{{ name }}">{{ label }}</label>
+        <input
+                type="{{ type }}"
+                class="form-control{{ ' is-invalid' if has_errors and errors[name]|length > 0 }}"
+                name="{{ name }}"
+                id="{{ name }}"
+                placeholder="{{ label }}"
+                {% if has_errors %}
+                value="{{ form_values[name] }}"
+                {% endif %}
+        >
+        {% if has_errors and errors[name]|length > 0 %}
+            {% for error in errors[name] %}
+                <div class="invalid-feedback">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% block content %}
+
+    <h1>Register</h1>
+    {% if has_errors %}
+        <div class="alert alert-danger" role="alert">
+            There were errors, check the form fields
+        </div>
+    {% endif %}
+    <form method="POST" action="/register">
+    {{ input('name', 'First Name') }}
+    {{ input('surname', 'Last Name') }}
+        <div class="form-group">
+            <label for="department_id">Department:</label>
+            <select id="department_id" name="department_id" class="form-control">
+                <option value="301">Manager</option>
+                <option value="302">Production</option>
+                <option value="303">Stock control</option>
+                <option value="304">Driver</option>
+                <option value="305">Security</option>
+            </select>
+        </div>
+    {{ input('email', 'Email') }}
+    {{ input('password', 'Password', 'password') }}
+    <div class="form-group">
+        <label for="confirm_password">Password</label>
+        <input type="password" class="form-control" name="confirm_password" id="confirm_password"
+               placeholder="Re-enter Password">
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-1">Submit</button>
+</form>
+
+
+{% endblock %}

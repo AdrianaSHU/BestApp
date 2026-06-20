@@ -1,0 +1,44 @@
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<h2>Access Log Details</h2>
+<table id="access-log-table">
+    <div class="delete-selected">
+        <button onclick="deleteSelected()">Delete Selected</button>
+    </div>
+    <thead>
+        <tr>
+            <th>Select</th>
+            <th>Log ID</th>
+            <th>Card Number</th>
+            <th>Access</th>
+            <th>Access Date Time</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in access_log %}
+    <tr>
+        <td><input type="checkbox" name="selectedLog" value="{{ log['LogID'] }}"></td>
+        <td>{{ log['LogID'] }}</td>
+        <td>{{ log['card_number'] }}</td>
+        <td>{{ log['Access'] }}</td>
+        <td>{{ log['AccessDateTime'] }}</td>
+        <td>
+            <form onsubmit="event.preventDefault(); deleteLog({{ log['LogID'] }});">
+                <input type="hidden" name="log_id" value="{{ log['LogID'] }}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+{% endfor %}
+    </tbody>
+</table>
+<script>
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const logId = this.getAttribute('data-logid');
+            deleteLog(logId);
+        });
+    });
+</script>
+{% endblock %}

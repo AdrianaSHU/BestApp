@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% if user %}
+    <span class="navbar-text">
+        Welcome {{ user['FirstName'] }}!
+        Your working Department is {{ user['DepartmentName'] }}.
+    </span>
+        <div class="button-container">
+            <button onclick="window.location.href = 'https://thingsboardshu.cloud/dashboard/731f1360-f596-11ee-8a09-7985b624ecfd?publicId=2848ba40-d975-11ee-8a09-7985b624ecfd';">Humidity</button>
+        </div>
+    {% if user['DepartmentID'] == 301 %}
+        <div class="button-container">
+            <button onclick="loadStockTable()">Stock</button>
+            <button onclick="loadEmployeesTable()">Employees</button>
+        </div>
+        <div class="button-container">
+            <button onclick="loadAccessTable()">Load Access Table</button>
+            <button onclick="window.location.href = '';">Forklift Proximity Details</button>
+        </div>
+    {% elif user['DepartmentID'] == 303 %}
+        <div class="button-container">
+            <button onclick="loadStockTable()">Stock</button>
+        </div>
+    {% endif %}
+{% endif %}
+<div id="stock-table-container" style="display: none;"></div>
+<div id="employee-table-container" style="display: none;"></div>
+<div id="access-table-container" style="display: none;"></div>
+<div id="employee-form-container" style="display: none;"></div>
+<script>
+    {% if stock_updated %}
+        loadStockTable();
+    {% endif %}
+    {% if department_updated %}
+        loadEmployeesTable();
+    {% endif %}
+    {% if access_log_updated %}
+        loadAccessTable();
+    {% endif %}
+</script>
+{% endblock %}
+

@@ -1,0 +1,48 @@
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<h2>Stock Details</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Ingredient ID</th>
+      <th>Ingredient Name</th>
+      <th>Current stock</th>
+      <th>Changes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ingredient in stock_details %}
+    <tr>
+      <td>{{ ingredient['IngredientID'] }}</td>
+      <td>{{ ingredient['IngredientName'] }}</td>
+      <td>{{ ingredient['Quantity'] }} {{ ingredient['Unit'] }}</td>
+      <td>
+        <form id="update_stock" action="/update_stock" method="post">
+            <input type="hidden" name="ingredient_id" value="{{ ingredient['IngredientID'] }}">
+            <input type="number" name="quantity" value="1" min="1" max="{{ ingredient['Quantity'] }}" required>
+            <button type="submit" name="action" value="add">+</button>
+            <button type="submit" name="action" value="subtract">-</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<script>
+  document.querySelectorAll('.action-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const form = this.closest('.update-form');
+      const action = this.dataset.action;
+      const quantityInput = form.querySelector('[name="quantity"]');
+      let quantity = parseInt(quantityInput.value);
+      if (action === 'increment') {
+        quantity++;
+      } else if (action === 'decrement') {
+        quantity = Math.max(1, quantity - 1);
+      }
+      quantityInput.value = quantity;
+      form.submit();
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Best Solutions Company</h1>
+    <p class="lead">We are dedicated to providing high-quality services and products.</p>
+    <hr class="my-4">
+    <p>Learn more about our company and our app.</p>
+    <a id="learnMoreBtn" class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        <div id="contactDetails" style="display: none;">
+            <div>
+                <p>Contact us: </p>
+                <p>Telephone: 123-456-7890</p>
+                <p>Email: example@example.com</p>
+                <p>Address: 123 Main St, Sheffield</p>
+            </div>
+        </div>
+
+    <script>
+        document.getElementById('learnMoreBtn').addEventListener('click', function() {
+            document.getElementById('contactDetails').style.display = 'block';
+        });
+    </script>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>About Our Company</h2>
+        <p>
+            Best Confectionary is a well-established confectionery manufacturer with roots dating back to 1920.
+            Situated in Sheffield, the company has earned a reputation for excellence in the industry.
+            Specializing in the production of small packs of hard-boiled sweets, it caters primarily to major retailers.
+            With a dedicated workforce of 20-25 employees, Best Confectionary operates across multiple functions, including administration, packing, goods handling, and production.
+        </p>
+    </div>
+    <div class="col-md-6">
+        <h2>About Our App</h2>
+        <p>
+            With a focus on real-time visibility, it aims to enhance safety monitoring and prevent future accidents.
+            The app seeks to view humidity levels in the drying room and in the main area.
+            It focuses on waste and stock control, inventory management, and improving product movement and security.
+            For Security, the app targets unauthorized access risks with security devices and aims to streamline operations with user-friendly applications for all employees.
+        </p>
+    </div>
+</div>
+
+{% endblock %}

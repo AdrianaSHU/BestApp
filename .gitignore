@@ -1,0 +1,12 @@
+# Virtual Environments
+.venv/
+env/
+
+# IDE and Cache
+.idea/
+__pycache__/
+*.pyc
+
+# Database and Secrets
+data.db
+isrgrootx1.pem
